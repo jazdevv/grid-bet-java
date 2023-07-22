@@ -7,13 +7,22 @@ import jakarta.persistence.*;
 public class User {
 
     @Id
+    @SequenceGenerator(
+            name= "user_sequence",
+            sequenceName = "user_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "user_sequence"
+    )
     private Long id;
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "password")
+    @Column(name = "email",nullable=false)
+    private String email;
+    @Column(name = "password",nullable=false)
     private String password;
 
-    @Column(name = "credit")
+    @Column(name = "credit",columnDefinition = "FLOAT default 0.0")
     private Float credit;
     public Long getId() {
         return id;
@@ -25,11 +34,11 @@ public class User {
 
 
     public String getFirstName() {
-        return firstName;
+        return email;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -50,7 +59,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "Person{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + password
+        return "Person{" + "id=" + id + ", email='" + email + '\'' + ", lastName='" + password
                 + '\'' + '}';
     }
 }
