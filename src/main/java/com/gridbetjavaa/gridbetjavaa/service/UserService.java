@@ -35,6 +35,16 @@ public class UserService {
     }
 
     public Long userLogin(User user){
-        return 0L;
+        //get the user
+        User user_id = userRepository.findByEmail(user.getEmail());
+        System.out.println(user_id.getPassword() + " " + user.getPassword());
+        //compare passwords
+        if(user_id.getPassword().equals(user.getPassword())){
+            System.out.println("logged");
+            return user_id.getId();
+        }else{
+            System.out.println("passwortds dont match");
+            return 0L;
+        }
     }
 }

@@ -22,10 +22,14 @@ public class AuthController {
     public ResponseEntity signup(@RequestBody User user){
         //create the user
         Long user_id = userService.newUser(user);
-        System.out.println(user_id);
+
         //if returned id = 0, email was taken and user cant be created
         if(user_id!=0){
+            //generate cookies
+            HttpHeaders cookieHeader = this.createAuthCookie(user_id);
+
             return ResponseEntity.ok()
+                    .headers(cookieHeader)
                     .body("succes");
         }else{
             return ResponseEntity.ok()
@@ -34,8 +38,21 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Boolean login(@RequestBody User user){
-        return true;
+    public ResponseEntity login(@RequestBody User user){
+        //login user
+        Long user_id = userService.userLogin(user);
+        System.out.println(user_id);
+        //if returned id = 0, email was taken and user cant be created
+        if(user_id!=0){
+            //generate cookies
+            HttpHeaders cookieHeader = this.createAuthCookie(user_id);
+            return ResponseEntity.ok()
+                    .headers(cookieHeader)
+                    .body("succes");
+        }else{
+            return ResponseEntity.ok()
+                    .body("fail");
+        }
     }
 
     private HttpHeaders createAuthCookie(Long id){
