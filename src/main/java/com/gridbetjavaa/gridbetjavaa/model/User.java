@@ -3,26 +3,18 @@ package com.gridbetjavaa.gridbetjavaa.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "usertable")
+@Table(name = "usertab")
 public class User {
 
     @Id
-    @SequenceGenerator(
-            name= "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     @Column(name = "email",nullable=false)
     private String email;
     @Column(name = "password",nullable=false)
     private String password;
 
-    @Column(name = "credit",columnDefinition = "FLOAT default 0.0")
+    @Column(name = "credit")
     private Float credit;
     public Long getId() {
         return id;
@@ -33,11 +25,11 @@ public class User {
     }
 
 
-    public String getFirstName() {
+    public String getEmail() {
         return email;
     }
 
-    public void setFirstName(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -61,6 +53,15 @@ public class User {
     public String toString() {
         return "Person{" + "id=" + id + ", email='" + email + '\'' + ", lastName='" + password
                 + '\'' + '}';
+    }
+    // Default constructor without any arguments
+    public User() {
+    }
+
+    public User(String email, String password){
+        this.email = email;
+        this.password = password;
+        this.credit = 0.0F;
     }
 }
 
