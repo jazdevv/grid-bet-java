@@ -17,8 +17,7 @@ public class GameService {
     }
 
     public Game getGameById(Long id){
-        Optional<Game> optionalGame =  gameRepository.findById(id);
-        Game game = optionalGame.orElse(new Game());
+        Game game =  gameRepository.findById(id).orElse(null);;
         return game;
     }
 }

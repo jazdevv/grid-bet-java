@@ -3,6 +3,7 @@ package com.gridbetjavaa.gridbetjavaa.repository;
 
 import com.gridbetjavaa.gridbetjavaa.model.GameBet;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface GameBetRepository extends JpaRepository<GameBet,Long> {
+public interface GameBetRepository extends CrudRepository<GameBet,Long> {
 }
