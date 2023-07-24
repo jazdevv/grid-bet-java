@@ -33,7 +33,8 @@ public class Game {
     public Game() {
     }
 
-    public Game(String name){
+    public Game(String name, Long id){
         this.name = name;
+        this.id = id;
     }
 }

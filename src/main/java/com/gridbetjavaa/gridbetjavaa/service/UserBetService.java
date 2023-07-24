@@ -5,7 +5,7 @@ import com.gridbetjavaa.gridbetjavaa.model.UserBet;
 import com.gridbetjavaa.gridbetjavaa.repository.UserBetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -15,8 +15,16 @@ public class UserBetService {
 
     @Autowired
     private UserService userService;
+    private GameBetService gameBetService;
 
     public UserBet startBet(Long userId, Long gameBetTo, Float amount, Float chosenOption){
+        //ACTIVE AT PRODUCTION
+        //restrict to closed bets
+//        GameBet gamebet = gameBetService.getBetGame(gameBetTo);
+//        if(gamebet.getEndDateTimestamp() > Instant.now().getEpochSecond()) {
+//            return null;
+//        };
+
         return userBetRepository.save(new UserBet( userId, gameBetTo, amount, chosenOption));
     }
     public void distributeRewards(GameBet gameBet){
