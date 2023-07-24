@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class GameService {
     @Autowired
-    GameRepository gameRepository;
+    private GameRepository gameRepository;
 
     public Game createGame(Game game){
         return gameRepository.save(game);

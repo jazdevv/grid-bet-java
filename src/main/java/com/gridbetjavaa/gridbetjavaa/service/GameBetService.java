@@ -12,10 +12,10 @@ import java.util.Optional;
 public class GameBetService {
 
     @Autowired
-    GameBetRepository gameBetRepository;
+    private GameBetRepository gameBetRepository;
 
     @Autowired
-    UserBetService userBetService;
+    private UserBetService userBetService;
     public GameBet createBetGame(GameBet newGameBet){
         return gameBetRepository.save(newGameBet);
     }

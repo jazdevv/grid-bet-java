@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public Long newUser(User user){
         //check if user exists
@@ -43,7 +43,7 @@ public class UserService {
             System.out.println("logged");
             return user_id.getId();
         }else{
-            System.out.println("passwortds dont match");
+            System.out.println("passwords don`t match");
             return 0L;
         }
     }

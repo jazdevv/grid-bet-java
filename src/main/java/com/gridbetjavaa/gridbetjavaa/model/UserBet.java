@@ -19,6 +19,15 @@ public class UserBet {
     @Column(name="amount", nullable = false)
     private Float amount;
 
+    @Column(name="chosenOption", nullable = false)
+    private Float chosenOption;
+
+    @Column(name="rewarded")
+    private Boolean rewarded;
+
+    @Column(name="finished")
+    private Boolean finished;
+
     public Long getId() {
         return id;
     }
@@ -51,11 +60,42 @@ public class UserBet {
         this.amount = amount;
     }
 
+    public Boolean getRewarded() {
+        return rewarded;
+    }
+
+    public void setRewarded(Boolean rewarded) {
+        this.rewarded = rewarded;
+    }
+
+    public Float getChosenOption() {
+        return chosenOption;
+    }
+
+    public Boolean getFinished() {
+        return finished;
+    }
+
+    public void setFinished(Boolean finished) {
+        this.finished = finished;
+    }
+
+    public void setChosenOption(Float chosenOption) {
+        this.chosenOption = chosenOption;
+    }
+
     // Default constructor without any arguments
     public UserBet() {
     }
 
     public UserBet(Long id) {
         this.id = id;
+    }
+
+    public UserBet(Long userId, Long gameBetTo, Float amount, Float chosenOption) {
+        this.userId = userId;
+        this.gameBetTo = gameBetTo;
+        this.amount = amount;
+        this.chosenOption = chosenOption;
     }
 }
