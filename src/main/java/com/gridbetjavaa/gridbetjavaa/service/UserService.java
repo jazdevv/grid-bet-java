@@ -47,4 +47,22 @@ public class UserService {
             return 0L;
         }
     }
+
+    public void incrementUserCredit(Long userid, Float amount){
+        User user = userRepository.findById(userid).orElse(null);
+        if(user!=null){
+            Float incrementedAmount = user.getCredit() + amount;
+            user.setCredit(incrementedAmount);
+            userRepository.save(user);
+        }
+    }
+
+    public void decreaseUserCredit(Long userid, Float amount){
+        User user = userRepository.findById(userid).orElse(null);
+        if(user!=null){
+            Float incrementedAmount = user.getCredit() - amount;
+            user.setCredit(incrementedAmount);
+            userRepository.save(user);
+        }
+    }
 }
