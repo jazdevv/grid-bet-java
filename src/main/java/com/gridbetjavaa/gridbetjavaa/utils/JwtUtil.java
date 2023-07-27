@@ -4,18 +4,29 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.security.Keys;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class JwtUtil {
-    private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    private final String sectret = "5225a059699b7325d2f3449b5a232d4aa1c3d7aa1ac4e9b6249e97415a8972eb";
+    private final SecretKey secretKey;
+
+    public JwtUtil(){
+        byte[] decodedKey = sectret.getBytes(StandardCharsets.UTF_8);
+        secretKey = new SecretKeySpec(decodedKey, "HmacSHA512");
+    }
 
     public String generateToken(Long id) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + 86400000);
+        Date expiryDate = new Date(now.getTime() + 864000000);
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", id);
@@ -24,12 +35,12 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(secretKey, SignatureAlgorithm.HS512)
+                .signWith(secretKey)
                 .compact();
     }
 
-    public Long extractUserId(String token) {
+    public Integer extractUserId(String token) {
         Claims claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody();
-        return (Long) claims.get("id");
+        return (Integer) claims.get("id");
     }
 }

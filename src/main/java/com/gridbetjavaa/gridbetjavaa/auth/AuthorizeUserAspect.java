@@ -29,11 +29,13 @@ public class AuthorizeUserAspect {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("jwtbet")) {
                     String jwtbetCookieValue = cookie.getValue();
-                    System.out.println("jwtbet Cookie value: " + jwtbetCookieValue);
+                    System.out.println(jwtbetCookieValue);
 
                     //decode thw jwt cookie and validate it
                     JwtUtil jwtUtil = new JwtUtil();
-                    Long user_id = jwtUtil.extractUserId(jwtbetCookieValue);
+                    Integer user_id = jwtUtil.extractUserId(jwtbetCookieValue);
+                    System.out.println("jwt validated");
+
                     if(user_id==null){
                         throw new CustomJwtBetException("Invalid jwtbet cookie value");
                     }
