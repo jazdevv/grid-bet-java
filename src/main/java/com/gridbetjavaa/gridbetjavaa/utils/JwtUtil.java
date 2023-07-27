@@ -39,8 +39,11 @@ public class JwtUtil {
                 .compact();
     }
 
-    public Integer extractUserId(String token) {
+    public Long extractUserId(String token) {
         Claims claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody();
-        return (Integer) claims.get("id");
+        Integer intId = (Integer) claims.get("id");
+        return intId.longValue();
     }
+
+
 }

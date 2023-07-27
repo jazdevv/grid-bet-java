@@ -33,7 +33,7 @@ public class AuthorizeUserAspect {
 
                     //decode thw jwt cookie and validate it
                     JwtUtil jwtUtil = new JwtUtil();
-                    Integer user_id = jwtUtil.extractUserId(jwtbetCookieValue);
+                    Long user_id = jwtUtil.extractUserId(jwtbetCookieValue);
                     System.out.println("jwt validated");
 
                     if(user_id==null){
