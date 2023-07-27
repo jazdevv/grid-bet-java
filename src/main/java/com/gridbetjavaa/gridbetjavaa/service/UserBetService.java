@@ -44,11 +44,22 @@ public class UserBetService {
     private void setAsWinner(UserBet userBet){
         //check userbet has not been finished
         if(userBet.getFinished()==false){
+            //get game bet
+            GameBet gameBet = gameBetService.getBetGame(userBet.getGameBetTo());
             //update the sql field
             userBet.setRewarded(true);
             userBet.setFinished(true);
             userBetRepository.save(userBet);
-            userService.incrementUserCredit(userBet.getUserId(),userBet.getAmount());
+            //calculate won amount
+            Float returnRate;
+            if(userBet.getChosenOption() == 1){
+                returnRate = gameBet.getTotalAmount() / gameBet.getTeam1amount();
+            }else{
+                returnRate = gameBet.getTotalAmount() / gameBet.getTeam2amount();
+            }
+            System.out.println("return rate"+returnRate);
+            Float wonAmount = userBet.getAmount() * returnRate;
+            userService.incrementUserCredit(userBet.getUserId(), wonAmount);
         }
 
     }
