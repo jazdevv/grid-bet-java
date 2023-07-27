@@ -16,8 +16,8 @@ public class GameBetService {
 
     @Autowired
     private UserBetService userBetService;
-    public GameBet createBetGame(GameBet newGameBet){
-        return gameBetRepository.save(newGameBet);
+    public GameBet createBetGame(String name, Float round, String team1name, String team2name, Float startDateTimestamp, Float endDateTimestamp, Long gameId){
+        return gameBetRepository.save(new GameBet(name, round, team1name, team2name, startDateTimestamp, endDateTimestamp, gameId));
     }
 
     public GameBet getBetGame(Long id){

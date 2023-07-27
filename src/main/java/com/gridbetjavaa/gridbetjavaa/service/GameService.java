@@ -12,13 +12,13 @@ public class GameService {
     @Autowired
     private GameRepository gameRepository;
 
-    public Game createGame(Game game){
-        Game existinggame = gameRepository.findById(game.getId()).orElse(null);
+    public Game createGame(Long id, String name){
+        Game existinggame = gameRepository.findById(id).orElse(null);
         if(existinggame==null){
             //game with that id exists so do not create again
             return null;
         }
-        return gameRepository.save(game);
+        return gameRepository.save(new Game(name,id));
     }
 
     public Game getGameById(Long id){
