@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 public class GameBet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "gameId", nullable = false)
     private Long gameId;
@@ -154,5 +153,12 @@ public class GameBet {
         this.startDateTimestamp = startDateTimestamp;
         this.endDateTimestamp = endDateTimestamp;
         this.gameId = gameId;
+        this.team1amount = 0F;
+        this.team2amount = 0F;
+        this.totalAmount = 0F;
+        Long roundLong = round.longValue();
+        //unique id based on gameid + round + gameid
+        Long id = Long.parseLong(gameId.toString() + roundLong.toString() + gameId.toString());
+        this.id = id;
     }
 }

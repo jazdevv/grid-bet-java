@@ -97,5 +97,7 @@ public class UserBet {
         this.gameBetTo = gameBetTo;
         this.amount = amount;
         this.chosenOption = chosenOption;
+        this.rewarded = false;
+        this.finished = false;
     }
 }
