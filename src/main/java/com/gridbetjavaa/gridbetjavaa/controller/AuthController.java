@@ -28,11 +28,16 @@ public class AuthController {
         //if returned id = 0, email was taken and user cant be created
         if(user_id!=0){
             //generate cookies
-            HttpHeaders cookieHeader = this.createAuthCookie(user_id);
+            String token = this.createAuthCookie(user_id);
+            //Create the cookie
+            ResponseCookie cookie = ResponseCookie.from("jwtbet",token).build();
+            // Add the cookie to the response headers
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.add(HttpHeaders.SET_COOKIE, cookie.toString());
 
             return ResponseEntity.ok()
-                    .headers(cookieHeader)
-                    .body("succes");
+                    .headers(responseHeaders)
+                    .body(token);
         }else{
             return ResponseEntity.ok()
                     .body("fail");
@@ -47,27 +52,27 @@ public class AuthController {
         //if returned id = 0, email was taken and user cant be created
         if(user_id!=0){
             //generate cookies
-            HttpHeaders cookieHeader = this.createAuthCookie(user_id);
+            String token = this.createAuthCookie(user_id);
+            //Create the cookie
+            ResponseCookie cookie = ResponseCookie.from("jwtbet",token).build();
+            // Add the cookie to the response headers
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.add(HttpHeaders.SET_COOKIE, cookie.toString());
             return ResponseEntity.ok()
-                    .headers(cookieHeader)
-                    .body("succes");
+                    .headers(responseHeaders)
+                    .body(token);
         }else{
             return ResponseEntity.ok()
                     .body("fail");
         }
     }
 
-    private HttpHeaders createAuthCookie(Long id){
+    private String createAuthCookie(Long id){
         //Generate JWT
         JwtUtil jwtUtil = new JwtUtil();
         String token = jwtUtil.generateToken(id);
         System.out.println("jwt " + token);
-        //Create the cookie
-        ResponseCookie cookie = ResponseCookie.from("jwtbet",token).build();
-        // Add the cookie to the response headers
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add(HttpHeaders.SET_COOKIE, cookie.toString());
-        return responseHeaders;
+        return token;
     }
 
 }

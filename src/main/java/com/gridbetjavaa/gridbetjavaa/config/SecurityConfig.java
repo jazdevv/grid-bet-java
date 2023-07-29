@@ -12,6 +12,11 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity()
@@ -22,8 +27,9 @@ public class SecurityConfig  {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
  //       http.addFilter(new JwtAuthorizationFilter());
 //
-        http.csrf().disable()
-                .authorizeRequests()
+        http.csrf().disable().cors().configurationSource(corsConfigurationSource());
+
+        http.authorizeRequests()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/bets/*").permitAll();
                 //.and().addFilter(jwtAuthenticationFilter)
@@ -41,6 +47,21 @@ public class SecurityConfig  {
                 .build();
 
 
+    }
+
+    CorsConfigurationSource corsConfigurationSource() {
+        final var configuration = new CorsConfiguration();
+        //configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setExposedHeaders(Arrays.asList("*"));
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+
+        final var source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
     }
 
 
