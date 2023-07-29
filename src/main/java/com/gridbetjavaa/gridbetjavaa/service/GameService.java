@@ -14,7 +14,7 @@ public class GameService {
 
     public Game createGame(Long id, String name){
         Game existinggame = gameRepository.findById(id).orElse(null);
-        if(existinggame==null){
+        if(existinggame!=null){
             //game with that id exists so do not create again
             return null;
         }

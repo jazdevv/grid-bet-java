@@ -1,8 +1,10 @@
 package com.gridbetjavaa.gridbetjavaa.controller;
 
 import com.gridbetjavaa.gridbetjavaa.auth.AuthorizeUser;
+import com.gridbetjavaa.gridbetjavaa.model.GameBet;
 import com.gridbetjavaa.gridbetjavaa.model.UserBet;
 import com.gridbetjavaa.gridbetjavaa.payload.Requests.StartBetRequest;
+import com.gridbetjavaa.gridbetjavaa.service.GameBetService;
 import com.gridbetjavaa.gridbetjavaa.service.UserBetService;
 import com.gridbetjavaa.gridbetjavaa.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class BetsController {
     @Autowired
     private UserBetService userBetService;
 
+    @Autowired
+    private GameBetService gameBetService;
     public BetsController(){
         jwtUtil = new JwtUtil();
     }
@@ -23,8 +27,11 @@ public class BetsController {
     @AuthorizeUser
     public ResponseEntity startBet(@CookieValue("jwtbet") String jwt, @RequestBody StartBetRequest req){
         Long userid = jwtUtil.extractUserId(jwt);
-        System.out.println(userid + req.getGameBetId() + req.getAmount());
+        //update gameBetAmounts
+        gameBetService.increaseAmount(req.getGameBetId(),req.getChoosenOption(),req.getAmount());
+        //create userBet
         UserBet userBet = userBetService.startBet(userid,req.getGameBetId(),req.getAmount(),req.getChoosenOption());
+
         if(userBet!=null){
             return ResponseEntity.ok().body("succes");
         }else{
