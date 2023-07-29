@@ -45,7 +45,7 @@ public class User {
         return credit;
     }
 
-    public void setCredit(Float Credit){
+    public void setCredit(Float credit){
         this.credit = credit;
     }
 

@@ -15,7 +15,6 @@ public class UserBetService {
 
     @Autowired
     private UserService userService;
-    private GameBetService gameBetService;
 
     public UserBet startBet(Long userId, Long gameBetTo, Float amount, Float chosenOption){
         //ACTIVE AT PRODUCTION
@@ -30,22 +29,20 @@ public class UserBetService {
     public void distributeRewards(GameBet gameBet){
         Float winnerOption = gameBet.getWinner();
         //get bets of that game
-        List<UserBet> bets = userBetRepository.findByGameBetTo(gameBet.getGameId());
+        List<UserBet> bets = userBetRepository.findByGameBetTo(gameBet.getId());
         //reward each game
         for(UserBet bet : bets){
             if(bet.getChosenOption().equals(winnerOption)){
-                setAsWinner(bet);
+                setAsWinner(bet,gameBet);
             }else{
                 setAsLoser(bet);
             }
         }
     }
 
-    private void setAsWinner(UserBet userBet){
+    private void setAsWinner(UserBet userBet, GameBet gameBet){
         //check userbet has not been finished
         if(userBet.getFinished()==false){
-            //get game bet
-            GameBet gameBet = gameBetService.getBetGame(userBet.getGameBetTo());
             //update the sql field
             userBet.setRewarded(true);
             userBet.setFinished(true);
@@ -56,9 +53,11 @@ public class UserBetService {
                 returnRate = gameBet.getTotalAmount() / gameBet.getTeam1amount();
             }else{
                 returnRate = gameBet.getTotalAmount() / gameBet.getTeam2amount();
+
             }
-            System.out.println("return rate"+returnRate);
             Float wonAmount = userBet.getAmount() * returnRate;
+            System.out.println("amount"+wonAmount);
+            System.out.println("userid"+userBet.getUserId());
             userService.incrementUserCredit(userBet.getUserId(), wonAmount);
         }
 
