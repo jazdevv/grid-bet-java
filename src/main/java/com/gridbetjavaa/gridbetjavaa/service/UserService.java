@@ -48,6 +48,15 @@ public class UserService {
         }
     }
 
+    public Float getUserCredit(Long userid){
+        User user = userRepository.findById(userid).orElse(null);
+        if(user!=null){
+            return user.getCredit();
+        }else{
+            return 0f;
+        }
+    }
+
     public void incrementUserCredit(Long userid, Float amount){
         User user = userRepository.findById(userid).orElse(null);
         if(user!=null){

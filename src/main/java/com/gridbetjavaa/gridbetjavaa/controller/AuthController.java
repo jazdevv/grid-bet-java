@@ -7,18 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping(path="/auth")
 public class AuthController {
 
+    private JwtUtil jwtUtil;
     @Autowired
     UserService userService;
+
+    public AuthController(JwtUtil jwtUtil) {
+        this.jwtUtil = new JwtUtil();
+    }
 
     @PostMapping("/signup")
     public ResponseEntity signup(@RequestBody User user){
@@ -67,6 +69,13 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/mycredit")
+    public Float getMyCredit(String jwtToken){
+        Long userid = jwtUtil.authorize(jwtToken);
+        return userService.getUserCredit(userid);
+    }
+
+
     private String createAuthCookie(Long id){
         //Generate JWT
         JwtUtil jwtUtil = new JwtUtil();
@@ -74,5 +83,6 @@ public class AuthController {
         System.out.println("jwt " + token);
         return token;
     }
+
 
 }
