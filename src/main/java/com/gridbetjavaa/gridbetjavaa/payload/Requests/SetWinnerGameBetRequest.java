@@ -4,6 +4,9 @@ public class SetWinnerGameBetRequest {
     private Long gameId;
     private Float winnerIndex;
 
+    private String jwtBet;
+
+
     public Long getGameId() {
         return gameId;
     }
@@ -18,5 +21,13 @@ public class SetWinnerGameBetRequest {
 
     public void setWinnerIndex(Float winnerIndex) {
         this.winnerIndex = winnerIndex;
+    }
+
+    public String getJwtBet() {
+        return jwtBet;
+    }
+
+    public void setJwtBet(String jwtBet) {
+        this.jwtBet = jwtBet;
     }
 }

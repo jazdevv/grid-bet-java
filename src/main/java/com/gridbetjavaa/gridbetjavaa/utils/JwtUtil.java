@@ -45,5 +45,11 @@ public class JwtUtil {
         return intId.longValue();
     }
 
+    public Long authorize(String token){
+        Claims claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody();
+        Integer intId = (Integer) claims.get("id");
+        return intId.longValue();
+    }
+
 
 }

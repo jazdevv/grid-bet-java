@@ -5,6 +5,8 @@ public class StartBetRequest {
     private Float amount;
     private Float choosenOption;
 
+    private String jwtBet;
+
     public Long getGameBetId() {
         return gameBetId;
     }
@@ -29,9 +31,18 @@ public class StartBetRequest {
         this.choosenOption = choosenOption;
     }
 
-    public StartBetRequest(Long gameBetId, Float amount, Float choosenOption) {
+    public String getJwtBet() {
+        return jwtBet;
+    }
+
+    public void setJwtBet(String jwtBet) {
+        this.jwtBet = jwtBet;
+    }
+
+    public StartBetRequest(Long gameBetId, Float amount, Float choosenOption, String jwtBet) {
         this.gameBetId = gameBetId;
         this.amount = amount;
         this.choosenOption = choosenOption;
+        this.jwtBet = jwtBet;
     }
 }

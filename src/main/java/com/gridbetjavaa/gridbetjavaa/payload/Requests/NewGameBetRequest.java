@@ -9,6 +9,9 @@ public class NewGameBetRequest {
     private Float endDateTimestamp;
     private Long gameId;
 
+    private String jwtBet;
+
+
     public String getName() {
         return name;
     }
@@ -65,7 +68,15 @@ public class NewGameBetRequest {
         this.gameId = gameId;
     }
 
-    public NewGameBetRequest(String name, Float round, String team1name, String team2name, Float startDateTimestamp, Float endDateTimestamp, Long gameId) {
+    public String getJwtBet() {
+        return jwtBet;
+    }
+
+    public void setJwtBet(String jwtBet) {
+        this.jwtBet = jwtBet;
+    }
+
+    public NewGameBetRequest(String name, Float round, String team1name, String team2name, Float startDateTimestamp, Float endDateTimestamp, Long gameId, String jwtBet) {
         this.name = name;
         this.round = round;
         this.team1name = team1name;
@@ -73,5 +84,6 @@ public class NewGameBetRequest {
         this.startDateTimestamp = startDateTimestamp;
         this.endDateTimestamp = endDateTimestamp;
         this.gameId = gameId;
+        this.jwtBet = jwtBet;
     }
 }

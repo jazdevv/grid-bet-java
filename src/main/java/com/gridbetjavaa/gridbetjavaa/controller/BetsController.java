@@ -24,9 +24,8 @@ public class BetsController {
         jwtUtil = new JwtUtil();
     }
     @PostMapping("/startBet")
-    @AuthorizeUser
-    public ResponseEntity startBet(@CookieValue("jwtbet") String jwt, @RequestBody StartBetRequest req){
-        Long userid = jwtUtil.extractUserId(jwt);
+    public ResponseEntity startBet(@RequestBody StartBetRequest req){
+        Long userid = jwtUtil.authorize(req.getJwtBet());
         //update gameBetAmounts
         gameBetService.increaseAmount(req.getGameBetId(),req.getChoosenOption(),req.getAmount());
         //create userBet
