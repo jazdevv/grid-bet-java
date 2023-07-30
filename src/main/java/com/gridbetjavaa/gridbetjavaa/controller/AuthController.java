@@ -71,10 +71,7 @@ public class AuthController {
 
     @GetMapping("/mycredit")
     public Float getMyCredit(@RequestParam String jwtbet){
-        System.out.println("here");
-        System.out.println(jwtbet);
         Long userid = jwtUtil.authorize(jwtbet);
-        System.out.println(userid);
         return userService.getUserCredit(userid);
     }
 

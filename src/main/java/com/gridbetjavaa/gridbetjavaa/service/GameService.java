@@ -5,6 +5,7 @@ import com.gridbetjavaa.gridbetjavaa.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,5 +25,10 @@ public class GameService {
     public Game getGameById(Long id){
         Game game =  gameRepository.findById(id).orElse(null);;
         return game;
+    }
+
+    public List<Game> getGames(){
+        List<Game> games = gameRepository.findAll();
+        return games;
     }
 }

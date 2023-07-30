@@ -1,15 +1,19 @@
 package com.gridbetjavaa.gridbetjavaa.controller;
 
 import com.gridbetjavaa.gridbetjavaa.auth.AuthorizeUser;
+import com.gridbetjavaa.gridbetjavaa.model.Game;
 import com.gridbetjavaa.gridbetjavaa.model.GameBet;
 import com.gridbetjavaa.gridbetjavaa.model.UserBet;
 import com.gridbetjavaa.gridbetjavaa.payload.Requests.StartBetRequest;
 import com.gridbetjavaa.gridbetjavaa.service.GameBetService;
+import com.gridbetjavaa.gridbetjavaa.service.GameService;
 import com.gridbetjavaa.gridbetjavaa.service.UserBetService;
 import com.gridbetjavaa.gridbetjavaa.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/bets")
@@ -20,6 +24,10 @@ public class BetsController {
 
     @Autowired
     private GameBetService gameBetService;
+
+    @Autowired
+    private GameService gameService;
+
     public BetsController(){
         jwtUtil = new JwtUtil();
     }
@@ -38,5 +46,10 @@ public class BetsController {
         }
 
 
+    }
+
+    @GetMapping("/getgames")
+    public List<Game> getGamesForBet(){
+        return gameService.getGames();
     }
 }
