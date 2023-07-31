@@ -2,8 +2,10 @@ package com.gridbetjavaa.gridbetjavaa.service;
 
 import com.gridbetjavaa.gridbetjavaa.model.Game;
 import com.gridbetjavaa.gridbetjavaa.model.GameBet;
+import com.gridbetjavaa.gridbetjavaa.payload.DTO.GameBetDTO;
 import com.gridbetjavaa.gridbetjavaa.repository.GameBetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,22 +14,26 @@ import java.util.Optional;
 public class GameBetService {
 
     @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
+    @Autowired
     private GameBetRepository gameBetRepository;
 
     @Autowired
     private UserBetService userBetService;
     public GameBet createBetGame(String name, Float round, String team1name, String team2name, Float startDateTimestamp, Float endDateTimestamp, Long gameId){
+        //create and store to db the new game
+        GameBet createdGame = gameBetRepository.save(new GameBet(name, round, team1name, team2name, startDateTimestamp, endDateTimestamp, gameId));
+        //send message through the websocket to connected users
+        simpMessagingTemplate.convertAndSend("/topic/bets",new GameBetDTO(createdGame.getId(), createdGame.getTeam1name(), createdGame.getTeam2name(), createdGame.getRound()));
 
-        return gameBetRepository.save(new GameBet(name, round, team1name, team2name, startDateTimestamp, endDateTimestamp, gameId));
+        return createdGame;
     }
 
     public GameBet getBetGame(Long id){
         return gameBetRepository.findById(id).orElse(null);
     }
 
-    public void emitGameBetToWebSocket(){
-
-    }
 
     public GameBet setGameWinner(Long gameBetId, Float winner){
         GameBet gameBet = gameBetRepository.findById(gameBetId).orElse(null);
