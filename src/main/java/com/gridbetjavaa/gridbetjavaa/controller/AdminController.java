@@ -33,7 +33,7 @@ public class AdminController {
         jwtUtil = new JwtUtil();
     }
     @PostMapping("/newGame")
-    public ResponseEntity newGame(@CookieValue("jwtbet") String jwt, @RequestBody NewGameRequest req){
+    public ResponseEntity newGame(@RequestBody NewGameRequest req){
         restrictToAdmins(req.getJwtBet());
         Game createdGame = gameService.createGame(req.getId(), req.getName());
         if(createdGame!=null){
@@ -45,7 +45,7 @@ public class AdminController {
     }
 
     @PostMapping("/newGameBet")
-    public ResponseEntity newGameBet(@CookieValue("jwtbet") String jwt, @RequestBody NewGameBetRequest req){
+    public ResponseEntity newGameBet( @RequestBody NewGameBetRequest req){
         restrictToAdmins(req.getJwtBet());
         GameBet newGameBet = gameBetService.createBetGame(req.getName(), req.getRound(), req.getTeam1name(), req.getTeam2name(), req.getStartDateTimestamp(), req.getEndDateTimestamp(), req.getGameId());
         if(newGameBet!=null){
@@ -57,7 +57,7 @@ public class AdminController {
     }
 
     @PostMapping("/setWinnerGameBet")
-    public ResponseEntity setWinnerGameBet(@CookieValue("jwtbet") String jwt, @RequestBody SetWinnerGameBetRequest req){
+    public ResponseEntity setWinnerGameBet(@RequestBody SetWinnerGameBetRequest req){
         restrictToAdmins(req.getJwtBet());
         GameBet gameBet = gameBetService.setGameWinner(req.getGameId(), req.getWinnerIndex());
         if(gameBet!=null){
