@@ -1,11 +1,20 @@
 package com.gridbetjavaa.gridbetjavaa.payload.DTO;
 
 public class GameBetDTO {
+    private Long gameId;
     private Long gameBetId;
     private String option0;
     private String option1;
 
     private Float round;
+
+    public Long getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
+    }
 
     public Long getGameBetId() {
         return gameBetId;
@@ -39,7 +48,10 @@ public class GameBetDTO {
         this.round = round;
     }
 
-    public GameBetDTO(Long gameBetId, String option0, String option1, Float round) {
+
+
+    public GameBetDTO(Long gameId, Long gameBetId, String option0, String option1, Float round) {
+        this.gameId = gameId;
         this.gameBetId = gameBetId;
         this.option0 = option0;
         this.option1 = option1;
