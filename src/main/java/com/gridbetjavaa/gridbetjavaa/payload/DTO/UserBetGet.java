@@ -1,4 +1,4 @@
-package com.gridbetjavaa.gridbetjavaa.model;
+package com.gridbetjavaa.gridbetjavaa.payload.DTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -16,12 +16,15 @@ public class UserBetGet {
 
     private String team2name;
 
+    private Float odd;
 
+    public Float getOdd() {
+        return odd;
+    }
 
-
-
-
-
+    public void setOdd(Float odd) {
+        this.odd = odd;
+    }
 
     public String getTeam1name() {
         return team1name;
@@ -97,7 +100,7 @@ public class UserBetGet {
         this.id = id;
     }
 
-    public UserBetGet(Float amount,Long gameBetTo, Boolean rewarded, Boolean finished, Float chosenOption,Long id, String team1name, String team2name) {
+    public UserBetGet(Float amount,Long gameBetTo, Boolean rewarded, Boolean finished, Float chosenOption,Long id, String team1name, String team2name, Float odd) {
         this.id = id;
         this.gameBetTo = gameBetTo;
         this.amount = amount;
@@ -106,5 +109,6 @@ public class UserBetGet {
         this.finished = finished;
         this.team1name = team1name;
         this.team2name = team2name;
+        this.odd = odd;
     }
 }

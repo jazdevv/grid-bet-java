@@ -2,7 +2,7 @@ package com.gridbetjavaa.gridbetjavaa.controller;
 
 import com.gridbetjavaa.gridbetjavaa.model.Game;
 import com.gridbetjavaa.gridbetjavaa.model.UserBet;
-import com.gridbetjavaa.gridbetjavaa.model.UserBetGet;
+import com.gridbetjavaa.gridbetjavaa.payload.DTO.UserBetGet;
 import com.gridbetjavaa.gridbetjavaa.payload.Requests.StartBetRequest;
 import com.gridbetjavaa.gridbetjavaa.service.GameBetService;
 import com.gridbetjavaa.gridbetjavaa.service.GameService;

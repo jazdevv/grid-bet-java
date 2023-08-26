@@ -39,6 +39,17 @@ public class GameBet {
     @Column(name="winner")
     private Float winner;
 
+    @Column(name="odd")
+    private Float odd;
+
+    public Float getOdd() {
+        return odd;
+    }
+
+    public void setOdd(Float odd) {
+        this.odd = odd;
+    }
+
     public Long getId() {
         return id;
     }
@@ -156,6 +167,7 @@ public class GameBet {
         this.team1amount = 0F;
         this.team2amount = 0F;
         this.totalAmount = 0F;
+        this.odd = 0F;
         Long roundLong = round.longValue();
         //unique id based on gameid + round + gameid
         Long id = Long.parseLong(gameId.toString() + roundLong.toString() + gameId.toString());

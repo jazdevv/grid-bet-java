@@ -2,11 +2,11 @@ package com.gridbetjavaa.gridbetjavaa.service;
 
 import com.gridbetjavaa.gridbetjavaa.model.GameBet;
 import com.gridbetjavaa.gridbetjavaa.model.UserBet;
-import com.gridbetjavaa.gridbetjavaa.model.UserBetGet;
+import com.gridbetjavaa.gridbetjavaa.payload.DTO.UserBetGet;
 import com.gridbetjavaa.gridbetjavaa.repository.UserBetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.Instant;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +42,8 @@ public class UserBetService {
                     (Float) result[4],   // chosen_option
                     (Long) result[5],    // id
                     (String) result[6],  // team1name
-                    (String) result[7]   // team2name
+                    (String) result[7],   // team2name
+                    (Float) result[8]
             );
             userBetList.add(userBet);
         }
