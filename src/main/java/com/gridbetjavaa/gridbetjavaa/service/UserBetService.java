@@ -2,10 +2,12 @@ package com.gridbetjavaa.gridbetjavaa.service;
 
 import com.gridbetjavaa.gridbetjavaa.model.GameBet;
 import com.gridbetjavaa.gridbetjavaa.model.UserBet;
+import com.gridbetjavaa.gridbetjavaa.model.UserBetGet;
 import com.gridbetjavaa.gridbetjavaa.repository.UserBetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,8 +29,24 @@ public class UserBetService {
         return userBetRepository.save(new UserBet( userId, gameBetTo, amount, chosenOption));
     }
 
-    public List<UserBet> getUserBets(Long userId){
-        return userBetRepository.findByUserId(userId);
+    public List<UserBetGet> getUserBets(Long userId){
+        List<Object[]> queryResult = userBetRepository.findByUserId(userId);
+        List<UserBetGet> userBetList = new ArrayList<>();
+
+        for (Object[] result : queryResult) {
+            UserBetGet userBet = new UserBetGet(
+                    (Float) result[0],    // amount
+                    (Long) result[1],    // game_bet_to
+                    (Boolean) result[2], // rewarded
+                    (Boolean) result[3], // finished
+                    (Float) result[4],   // chosen_option
+                    (Long) result[5],    // id
+                    (String) result[6],  // team1name
+                    (String) result[7]   // team2name
+            );
+            userBetList.add(userBet);
+        }
+        return userBetList;
     }
 
     public void distributeRewards(GameBet gameBet){
