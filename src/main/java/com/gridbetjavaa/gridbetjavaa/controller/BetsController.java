@@ -4,6 +4,7 @@ import com.gridbetjavaa.gridbetjavaa.auth.AuthorizeUser;
 import com.gridbetjavaa.gridbetjavaa.model.Game;
 import com.gridbetjavaa.gridbetjavaa.model.GameBet;
 import com.gridbetjavaa.gridbetjavaa.model.UserBet;
+import com.gridbetjavaa.gridbetjavaa.payload.Requests.GetMyBetsRequest;
 import com.gridbetjavaa.gridbetjavaa.payload.Requests.StartBetRequest;
 import com.gridbetjavaa.gridbetjavaa.service.GameBetService;
 import com.gridbetjavaa.gridbetjavaa.service.GameService;
@@ -51,5 +52,13 @@ public class BetsController {
     @GetMapping("/getgames")
     public List<Game> getGamesForBet(){
         return gameService.getGames();
+    }
+
+    @GetMapping("/mybets")
+    public  List<UserBet> getMyBets(@RequestBody GetMyBetsRequest req){
+        Long userid = jwtUtil.authorize(req.getJwtBet());
+
+        return userBetService.getUserBets(userid);
+        //return null;
     }
 }

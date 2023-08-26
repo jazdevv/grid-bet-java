@@ -26,6 +26,11 @@ public class UserBetService {
 
         return userBetRepository.save(new UserBet( userId, gameBetTo, amount, chosenOption));
     }
+
+    public List<UserBet> getUserBets(Long userId){
+        return userBetRepository.findByUserId(userId);
+    }
+
     public void distributeRewards(GameBet gameBet){
         Float winnerOption = gameBet.getWinner();
         //get bets of that game
@@ -39,7 +44,6 @@ public class UserBetService {
             }
         }
     }
-
     private void setAsWinner(UserBet userBet, GameBet gameBet){
         //check userbet has not been finished
         if(userBet.getFinished()==false){
@@ -71,4 +75,6 @@ public class UserBetService {
             userBetRepository.save(userBet);
         }
     }
+
+
 }
