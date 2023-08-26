@@ -43,7 +43,8 @@ public class UserBetService {
                     (Long) result[5],    // id
                     (String) result[6],  // team1name
                     (String) result[7],   // team2name
-                    (Float) result[8]
+                    (Float) result[8],
+                    (Float) result[9]
             );
             userBetList.add(userBet);
         }

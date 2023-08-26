@@ -20,7 +20,8 @@ public interface UserBetRepository extends CrudRepository<UserBet,Long> {
                     "userbet.id AS id," +
                     "gamebet.team1name AS team1name," +
                     "gamebet.team2name AS team2name, " +
-                    "gamebet.odd AS odd " +
+                    "gamebet.odd AS odd, " +
+                    "gamebet.winner AS winner " +
                     "FROM userbet INNER JOIN gamebet ON userbet.game_bet_to = gamebet.id WHERE userbet.user_id=?1",
             nativeQuery = true
     )

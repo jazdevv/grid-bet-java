@@ -17,6 +17,15 @@ public class UserBetGet {
     private String team2name;
 
     private Float odd;
+    private Float winner;
+
+    public Float getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Float winner) {
+        this.winner = winner;
+    }
 
     public Float getOdd() {
         return odd;
@@ -100,7 +109,7 @@ public class UserBetGet {
         this.id = id;
     }
 
-    public UserBetGet(Float amount,Long gameBetTo, Boolean rewarded, Boolean finished, Float chosenOption,Long id, String team1name, String team2name, Float odd) {
+    public UserBetGet(Float amount,Long gameBetTo, Boolean rewarded, Boolean finished, Float chosenOption,Long id, String team1name, String team2name, Float odd, Float winner) {
         this.id = id;
         this.gameBetTo = gameBetTo;
         this.amount = amount;
@@ -110,5 +119,6 @@ public class UserBetGet {
         this.team1name = team1name;
         this.team2name = team2name;
         this.odd = odd;
+        this.winner = winner;
     }
 }
